@@ -11,6 +11,7 @@ export default [
     rules: {
       // disallow relative imports in all source files
       "no-restricted-imports": ["error", { patterns: [".*"] }],
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   },
   {

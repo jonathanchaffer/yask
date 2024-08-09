@@ -5,7 +5,14 @@ import { CacheClient } from "modules/cache/types";
 export const createInMemoryCacheClient = (): CacheClient => {
   const cache = new Map<string, string>();
 
+  if (process.env.NODE_ENV !== "test") {
+    console.warn(
+      "In-memory cache client is not recommended for production use."
+    );
+  }
+
   return {
+    connect: async () => {},
     get: async (key) => cache.get(key) ?? null,
     set: async (key, value) => {
       cache.set(key, value);
