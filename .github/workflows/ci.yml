@@ -6,7 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
+      - uses: hoverkraft-tech/compose-action@v2.0.1
+        with:
+          compose-file: src/docker-compose.yml
+      - name: Run unit tests
+        run: |
           npm install
           npm run test
         working-directory: src
