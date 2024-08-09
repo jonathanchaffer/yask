@@ -8,6 +8,10 @@ export const CACHE_CLIENT_CONSTRUCTORS = {
   inMemory: createInMemoryCacheClient,
 };
 
+/**
+ * Create a cache "store" that wraps a cache client and enforces a specific key
+ * and value schema, providing type safety on storage and retrieval.
+ */
 export function createCacheStore<K extends z.ZodType, V extends z.ZodType>(
   config: CacheStoreConfig<K, V>,
   cacheClient: CacheClient
