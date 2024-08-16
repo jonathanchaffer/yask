@@ -1,15 +1,17 @@
 {
   "compilerOptions": {
-    "target": "es2016",
-    "module": "commonjs",
+    "target": "es2019",
+    "module": "nodenext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "types": ["vitest/globals"],
     "declaration": true,
+    "lib": ["es2017", "dom"],
     "baseUrl": ".",
-    "lib": ["es2017", "dom"]
-  }
+    "paths": { "~/*": ["src/*"] }
+  },
+  "include": ["src"]
 }

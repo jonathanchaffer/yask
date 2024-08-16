@@ -1,7 +1,7 @@
-import { createInMemoryCacheClient } from "modules/cache/in-memory";
-import { createRedisCacheClient } from "modules/cache/redis";
-import { CacheClient, CacheStoreConfig } from "modules/cache/types";
 import { z } from "zod";
+import { createInMemoryCacheClient } from "./in-memory";
+import { createRedisCacheClient } from "./redis";
+import { CacheClient, CacheStoreConfig } from "./types";
 
 export const CACHE_CLIENT_CONSTRUCTORS = {
   redis: createRedisCacheClient,

@@ -1,8 +1,7 @@
-import { CacheClient } from "modules/cache/types";
 import { createClient } from "redis";
+import { CacheClient } from "./types";
 
-// Cache client that stores data in Redis.
-
+/**  Cache client that stores data in Redis. */
 export const createRedisCacheClient = (): CacheClient => {
   const client = createClient();
 

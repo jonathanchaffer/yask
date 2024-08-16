@@ -1,11 +1,12 @@
 import express from "express";
-import { createInMemoryCacheClient, createRedisCacheClient } from "starter-kit";
+import { createInMemoryCacheClient } from "~/modules/cache/in-memory";
+import { createRedisCacheClient } from "~/modules/cache/redis";
 
 const app = express();
 const port = 3000;
 
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("<h1>Hello World!</h1>");
 });
 
 app.listen(port, () => {
@@ -13,7 +14,7 @@ app.listen(port, () => {
 });
 
 app.get("/redis-cache-example", async (req, res) => {
-  const cacheClient = await createRedisCacheClient();
+  const cacheClient = createRedisCacheClient();
 
   const keyToStore = "some-key";
   const valueToStore = "I'm a value coming from Redis!";

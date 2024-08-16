@@ -1,7 +1,6 @@
-import { CacheClient } from "modules/cache/types";
+import { CacheClient } from "./types";
 
-// Cache client that stores data in memory. Not recommended for production use.
-
+/** Cache client that stores data in memory. Not recommended for production use. */
 export const createInMemoryCacheClient = (): CacheClient => {
   const cache = new Map<string, string>();
 

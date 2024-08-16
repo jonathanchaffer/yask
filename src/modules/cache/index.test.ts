@@ -1,6 +1,6 @@
-import { CACHE_CLIENT_CONSTRUCTORS, createCacheStore } from "modules/cache";
-import { createInMemoryCacheClient } from "modules/cache/in-memory";
 import { z } from "zod";
+import { CACHE_CLIENT_CONSTRUCTORS, createCacheStore } from ".";
+import { createInMemoryCacheClient } from "./in-memory";
 
 // Run the same tests for each cache client implementation to ensure they all
 // work the same way.

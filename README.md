@@ -1,6 +1,20 @@
 # TypeScript Starter Kit
 
-This project is a set of abstractions and tools to help you kickstart a new TypeScript project. It's factored as a set of "modules" that you can use independently or together. This repo also includes a sample project that showcases how these modules can be used in application code.
+Template repository for TypeScript applications. Mostly focuses on back-end code, with the ability to plug in whichever front-end framework you prefer.
 
-- [Starter Kit README](./src/README.md)
-- [Sample Project README](./example/README.md)
+## Local development setup
+
+1. Install dependencies: `npm install`
+2. Start Docker: `docker-compose up -d`
+3. Start development server: `npm run dev`
+
+## `package.json` scripts
+
+Scripts are organized as parent and child commands, separated by `:` (e.g. `test` and `test:unit`). Parent commands utilize `npm-run-all` to run all child commands in parallel or sequentially. Parent commands are listed here:
+
+- `build`: Build the project. This template uses `tsc` to compile TypeScript files to JavaScript. Depending on your project, you might replace this with a different build tool.
+- `start`: Start the project using the compiled JavaScript files.
+- `dev`: Start the project in development mode. This template watches for changes in the TypeScript files and restarts the server when a change is detected.
+- `test`: Run tests. This template uses [Vitest](https://vitest.dev/).
+- `lint`: Lint the project. This template uses [ESLint](https://eslint.org/).
+- `clean`: Delete auto-generated files. In this template, it deletes the `dist` and `node_modules` directories.
