@@ -2,6 +2,15 @@
 
 Template repository for TypeScript applications. Mostly focuses on back-end code, with the ability to plug in whichever front-end framework you prefer.
 
+## Features
+
+- Development in [TypeScript](https://www.typescriptlang.org/)
+- Linting with [ESLint](https://eslint.org/)
+- Formatting with [Prettier](https://prettier.io/)
+- Local environment setup with [Docker](https://www.docker.com/)
+- Unit testing with [Vitest](https://vitest.dev/)
+- Caching with [Redis](https://redis.io/)
+
 ## Local development setup
 
 1. Install dependencies: `npm install`
@@ -16,5 +25,5 @@ Scripts are organized as parent and child commands, separated by `:` (e.g. `test
 - `start`: Start the project using the compiled JavaScript files.
 - `dev`: Start the project in development mode. This template watches for changes in the TypeScript files and restarts the server when a change is detected.
 - `test`: Run tests. This template uses [Vitest](https://vitest.dev/).
-- `lint`: Lint the project. This template uses [ESLint](https://eslint.org/).
+- `check`: Perform code checks (linting, formatting, type checking).
 - `clean`: Delete auto-generated files. In this template, it deletes the `dist` and `node_modules` directories.
