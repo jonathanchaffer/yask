@@ -48,7 +48,7 @@ describe.each(Object.entries(CACHE_CLIENT_CONSTRUCTORS))(
             keyFormatter: (key) => `foo-${key.id}-${key.secondaryId}`,
             valueSchema: z.object({ foo: z.string(), bar: z.number() }),
           },
-          createCacheClient()
+          createCacheClient(),
         );
         await store.connect();
 
@@ -68,7 +68,7 @@ describe.each(Object.entries(CACHE_CLIENT_CONSTRUCTORS))(
             keyFormatter: (key) => `${key}`,
             valueSchema: z.number(),
           },
-          createInMemoryCacheClient()
+          createInMemoryCacheClient(),
         );
 
         // @ts-expect-error - value should be a number, not a string
@@ -79,5 +79,5 @@ describe.each(Object.entries(CACHE_CLIENT_CONSTRUCTORS))(
         store.get({ foo: "bar" }, 1);
       });
     });
-  }
+  },
 );

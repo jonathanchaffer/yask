@@ -6,7 +6,7 @@ export const createInMemoryCacheClient = (): CacheClient => {
 
   if (process.env.NODE_ENV !== "test") {
     console.warn(
-      "In-memory cache client is not recommended for production use."
+      "In-memory cache client is not recommended for production use.",
     );
   }
 

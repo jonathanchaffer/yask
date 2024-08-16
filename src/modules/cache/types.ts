@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export type CacheClient<
   K extends z.ZodType = z.ZodString,
-  V extends z.ZodType = z.ZodString
+  V extends z.ZodType = z.ZodString,
 > = {
   connect: () => Promise<unknown>;
   get: (key: z.infer<K>) => Promise<z.infer<V> | null>;

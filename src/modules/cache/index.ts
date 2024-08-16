@@ -14,7 +14,7 @@ export const CACHE_CLIENT_CONSTRUCTORS = {
  */
 export function createCacheStore<K extends z.ZodType, V extends z.ZodType>(
   config: CacheStoreConfig<K, V>,
-  cacheClient: CacheClient
+  cacheClient: CacheClient,
 ): CacheClient<K, V> {
   return {
     connect: () => cacheClient.connect(),
@@ -30,7 +30,7 @@ export function createCacheStore<K extends z.ZodType, V extends z.ZodType>(
       const formattedKey = config.keyFormatter(key);
       const storedValue = await cacheClient.set(
         formattedKey,
-        JSON.stringify(value)
+        JSON.stringify(value),
       );
       return storedValue ? value : null;
     },

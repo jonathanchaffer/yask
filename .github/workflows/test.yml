@@ -1,15 +1,13 @@
-name: unit tests
 on: [push]
-
 jobs:
-  unit-tests:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: hoverkraft-tech/compose-action@v2.0.1
         with:
           compose-file: docker-compose.yml
-      - name: Run unit tests
+      - name: Run tests
         run: |
           npm install
           npm run test
