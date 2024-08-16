@@ -1,4 +1,8 @@
+import { faker } from "@faker-js/faker";
+import { eq } from "drizzle-orm";
 import express from "express";
+import { db } from "~/db/drizzle";
+import { users } from "~/db/drizzle/schema";
 import { createInMemoryCacheClient } from "~/modules/cache/in-memory";
 import { createRedisCacheClient } from "~/modules/cache/redis";
 
@@ -37,4 +41,22 @@ app.get("/in-memory-cache-example", async (req, res) => {
   const value = await cacheClient.get(keyToStore);
 
   res.send(value);
+});
+
+app.get("/drizzle-example", async (req, res) => {
+  const insertedUsers = await db
+    .insert(users)
+    .values({
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+    })
+    .returning();
+
+  const userId = insertedUsers[0].id;
+
+  const selectedUser = await db.query.users.findFirst({
+    where: eq(users.id, userId),
+  });
+
+  res.send(JSON.stringify(selectedUser));
 });

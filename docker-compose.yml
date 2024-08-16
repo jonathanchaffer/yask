@@ -3,3 +3,10 @@ services:
     image: redis
     ports:
       - "6379:6379"
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: p4ssw0rd

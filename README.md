@@ -9,13 +9,17 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 - Formatting with [Prettier](https://prettier.io/)
 - Local environment setup with [Docker](https://www.docker.com/)
 - Unit testing with [Vitest](https://vitest.dev/)
-- Caching with [Redis](https://redis.io/)
+- Caching with [Redis](https://redis.io/) caching
+- Data persistence with [PostgreSQL](https://www.postgresql.org/)
+- ORM and migrations with [Drizzle](https://orm.drizzle.team/)
 
 ## Local development setup
 
+1. Setup local environment: `cp .env.example .env`
+1. Start Docker: `docker-compose up -d`
 1. Install dependencies: `npm install`
-2. Start Docker: `docker-compose up -d`
-3. Start development server: `npm run dev`
+1. Run database migrations: `npm run migrate`
+1. Start development server: `npm run dev`
 
 ## `package.json` scripts
 
@@ -27,3 +31,4 @@ Scripts are organized as parent and child commands, separated by `:` (e.g. `test
 - `test`: Run tests. This template uses [Vitest](https://vitest.dev/).
 - `check`: Perform code checks (linting, formatting, type checking).
 - `clean`: Delete auto-generated files. In this template, it deletes the `dist` and `node_modules` directories.
+- `migrate`: Generate and run database migrations. This template uses [Drizzle](https://orm.drizzle.team/).
