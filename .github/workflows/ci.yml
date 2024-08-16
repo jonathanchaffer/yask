@@ -1,6 +1,7 @@
 on: [push]
 jobs:
   test:
+    name: 🧪 test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -12,6 +13,7 @@ jobs:
           npm install
           npm run test
   check:
+    name: ✅ check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
