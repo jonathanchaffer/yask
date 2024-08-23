@@ -1,23 +1,25 @@
-export type HexagonalPort<TName extends string = string, TAdapter = unknown> = {
-  name: TName;
+export type HexagonalPort<
+  TPortName extends string = string,
+  TAdapter = unknown,
+> = {
+  name: TPortName;
   _adapter: TAdapter;
 };
 
 export type HexagonalAdapter<TPort extends HexagonalPort> = TPort["_adapter"];
 
-export type HexagonalAdapterBuilder<TPort extends HexagonalPort> = (
-  ctx: MinimalHexagonalContext,
+export type HexagonalAdapterBuilder<
+  TDependency extends HexagonalPort,
+  TPort extends HexagonalPort,
+> = (
+  ctx: HexagonalContext<TDependency["name"], TDependency>,
 ) => HexagonalAdapter<TPort>;
 
-type MinimalHexagonalContext = {
-  getAdapter: <TPort extends HexagonalPort>(
-    port: TPort,
-  ) => HexagonalAdapter<TPort>;
-};
-
-export type HexagonalContext = MinimalHexagonalContext & {
-  bindAdapter: <TPort extends HexagonalPort>(
-    port: TPort,
-    adapterBuilder: HexagonalAdapterBuilder<TPort>,
-  ) => void;
+export type HexagonalContext<
+  TPortName extends string,
+  TPort extends HexagonalPort<TPortName>,
+> = {
+  getAdapter: <TName extends TPortName>(
+    portName: TName,
+  ) => HexagonalAdapter<Extract<TPort, { name: TName }>>;
 };

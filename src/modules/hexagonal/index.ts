@@ -5,35 +5,58 @@ import {
   HexagonalPort,
 } from "./types";
 
-export function createPort<TAdapter, TName extends string = string>(
+export function createPort<TAdapter, TName extends string>(
   name: TName,
 ): HexagonalPort<TName, TAdapter> {
   return { name } as HexagonalPort<TName, TAdapter>;
 }
 
-export function createAdapter<TPort extends HexagonalPort>(
+export function createAdapter<
+  TDependencyName extends string,
+  TDependency extends HexagonalPort<TDependencyName>,
+  TPortName extends string,
+  TPort extends HexagonalPort<TPortName>,
+>(
   _port: TPort, // unused - just for type inference
-  builder: HexagonalAdapterBuilder<TPort>,
-): HexagonalAdapterBuilder<TPort> {
+  _dependencies: TDependency[], // unused - just for type inference
+  builder: HexagonalAdapterBuilder<TDependency, TPort>,
+): HexagonalAdapterBuilder<TDependency, TPort> {
   return builder;
 }
 
-export function createContext(): HexagonalContext {
-  const bindingMap: Record<string, HexagonalAdapter<HexagonalPort>> = {};
+export function createBinding<
+  TPort extends HexagonalPort,
+  TDependency extends HexagonalPort,
+>(port: TPort, adapterBuilder: HexagonalAdapterBuilder<TDependency, TPort>) {
+  return [port, adapterBuilder];
+}
 
-  function getAdapter<TPort extends HexagonalPort>(port: TPort) {
-    const mapping = bindingMap[port.name];
+export function createContext<
+  TPorts extends HexagonalPort[],
+  TDependencies extends HexagonalPort[] | never = never,
+>(bindings: {
+  [Index in keyof TPorts]: [
+    TPorts[Index],
+    HexagonalAdapterBuilder<TDependencies[number], TPorts[Index]>,
+  ];
+}): HexagonalContext<TPorts[number]["name"], TPorts[number]> {
+  const bindingMap: Record<
+    string,
+    HexagonalAdapterBuilder<TDependencies[number], TPorts[number]>
+  > = Object.fromEntries(
+    bindings.map(([port, adapterBuilder]) => [port.name, adapterBuilder]),
+  );
+
+  function getAdapter<TName extends TPorts[number]["name"]>(
+    portName: TName,
+  ): HexagonalAdapter<Extract<TPorts[number], { name: TName }>> {
+    const mapping = bindingMap[portName];
     if (!mapping)
       throw new Error(
-        `Adapter not found for port '${port.name}'. Did you forget to bind it?`,
+        `Adapter not found for port '${portName}'. Did you forget to bind it?`,
       );
-    return mapping as HexagonalAdapter<typeof port>;
+    return mapping({ getAdapter });
   }
 
-  return {
-    getAdapter,
-    bindAdapter: (port, adapterBuilder) => {
-      bindingMap[port.name] = adapterBuilder({ getAdapter });
-    },
-  };
+  return { getAdapter };
 }
