@@ -5,6 +5,7 @@ import { db } from "~/db/drizzle";
 import { users } from "~/db/drizzle/schema";
 import { createInMemoryCacheClient } from "~/modules/cache/in-memory";
 import { createRedisCacheClient } from "~/modules/cache/redis";
+import { createAdapter, createContext, createPort } from "~/modules/hexagonal";
 
 const app = express();
 const port = 3000;
@@ -59,4 +60,35 @@ app.get("/drizzle-example", async (req, res) => {
   });
 
   res.send(JSON.stringify(selectedUser));
+});
+
+app.get("/hexagonal-example", async (req, res) => {
+  const helloPort = createPort<{ sayHello: () => string }>("hello");
+  const helloAdapter = createAdapter(helloPort, () => ({
+    sayHello: () => "Hello",
+  }));
+
+  const worldPort = createPort<{ sayWorld: () => string }>("world");
+  const worldAdapter = createAdapter(worldPort, () => ({
+    sayWorld: () => "World",
+  }));
+
+  const helloWorldPort = createPort<{ sayHelloWorld: () => string }>(
+    "helloWorld",
+  );
+  const helloWorldAdapter = createAdapter(helloWorldPort, (ctx) => {
+    const hello = ctx.getAdapter(helloPort);
+    const world = ctx.getAdapter(worldPort);
+    return {
+      sayHelloWorld: () => `${hello.sayHello()}, ${world.sayWorld()}!`,
+    };
+  });
+
+  const context = createContext();
+  context.bindAdapter(helloPort, helloAdapter);
+  context.bindAdapter(worldPort, worldAdapter);
+  context.bindAdapter(helloWorldPort, helloWorldAdapter);
+
+  const helloWorld = context.getAdapter(helloWorldPort);
+  res.send(helloWorld.sayHelloWorld());
 });
