@@ -12,10 +12,14 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 - Caching with [Redis](https://redis.io/) caching
 - Data persistence with [PostgreSQL](https://www.postgresql.org/)
 - ORM and migrations with [Drizzle](https://orm.drizzle.team/)
+- Hexagonal dependency injection context
 
 ## Local development setup
 
-1. Install [Docker](https://www.docker.com/) and [Node.js](https://nodejs.org/) if you haven't already.
+1. Install [Docker](https://www.docker.com/) and [Node.js](https://nodejs.org/)
+1. Install [Visual Studio Code](https://code.visualstudio.com/)
+1. Clone this repository and open it in Visual Studio Code
+1. Install recommended extensions when prompted
 1. Setup local environment: `cp .env.example .env`
 1. Start Docker: `docker-compose up -d`
 1. Install dependencies: `npm install`
@@ -33,3 +37,14 @@ Scripts are organized as parent and child commands, separated by `:` (e.g. `test
 - `check`: Perform code checks (linting, formatting, type checking).
 - `clean`: Delete auto-generated files. In this template, it deletes the `dist` and `node_modules` directories.
 - `migrate`: Reset database; generate and run migrations. This template uses [Drizzle](https://orm.drizzle.team/).
+
+## Directory structure
+
+- `.github/`: GitHub Actions workflows.
+- `.vscode/`: Visual Studio Code settings and recommended extensions.
+- `src/`: Contains all the source code for the application itself. Scripts, configurations, etc. that don't directly interact with the application should be put somewhere else.
+  - `db/`: Contains all database-related code for the application.
+  - `modules/`: Contains generic, non-application-specific modules that can be used across different parts of the codebase.
+    - `cache/`: Cache interface and implementatios in Redis and in-memory.
+    - `hexagonal/`: Hexagonal architecture implementation.
+  - `logic/`: Contains the business logic of the application.
