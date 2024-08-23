@@ -15,10 +15,11 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 
 ## Local development setup
 
+1. Install [Docker](https://www.docker.com/) and [Node.js](https://nodejs.org/) if you haven't already.
 1. Setup local environment: `cp .env.example .env`
 1. Start Docker: `docker-compose up -d`
 1. Install dependencies: `npm install`
-1. Run database migrations: `npm run migrate`
+1. Setup database: `npm run migrate`
 1. Start development server: `npm run dev`
 
 ## `package.json` scripts
@@ -31,4 +32,4 @@ Scripts are organized as parent and child commands, separated by `:` (e.g. `test
 - `test`: Run tests. This template uses [Vitest](https://vitest.dev/).
 - `check`: Perform code checks (linting, formatting, type checking).
 - `clean`: Delete auto-generated files. In this template, it deletes the `dist` and `node_modules` directories.
-- `migrate`: Generate and run database migrations. This template uses [Drizzle](https://orm.drizzle.team/).
+- `migrate`: Reset database; generate and run migrations. This template uses [Drizzle](https://orm.drizzle.team/).
