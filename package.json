@@ -20,8 +20,11 @@
     "fix:format": "prettier --write .",
     "clean": "rm -rf dist && rm -rf node_modules",
     "migrate": "run-s migrate:*",
+    "migrate:reset": "run-s migrate:reset:*",
     "migrate:reset:drizzle": "ts-node -T src/db/drizzle/reset.ts",
+    "migrate:create": "run-s migrate:create:*",
     "migrate:create:drizzle": "drizzle-kit generate --config src/db/drizzle/config.ts",
+    "migrate:up": "run-s migrate:up:*",
     "migrate:up:drizzle": "drizzle-kit migrate --config src/db/drizzle/config.ts",
     "prepare": "husky"
   },
