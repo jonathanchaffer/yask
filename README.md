@@ -13,6 +13,7 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 - Data persistence with [PostgreSQL](https://www.postgresql.org/)
 - ORM and migrations with [Drizzle](https://orm.drizzle.team/)
 - Hexagonal dependency injection context
+- Pre-commit checks with [Husky](https://typicode.github.io/husky/)
 
 ## Local development setup
 
@@ -35,6 +36,7 @@ Scripts are organized as parent and child commands, separated by `:` (e.g. `test
 - `dev`: Start the project in development mode. This template watches for changes in the TypeScript files and restarts the server when a change is detected.
 - `test`: Run tests. This template uses [Vitest](https://vitest.dev/).
 - `check`: Perform code checks (linting, formatting, type checking).
+- `fix`: Fix auto-fixable issues (linting, formatting).
 - `clean`: Delete auto-generated files. In this template, it deletes the `dist` and `node_modules` directories.
 - `migrate`: Reset database; generate and run migrations. This template uses [Drizzle](https://orm.drizzle.team/).
 
