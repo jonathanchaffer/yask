@@ -1,11 +1,17 @@
 import { faker } from "@faker-js/faker";
 import { eq } from "drizzle-orm";
 import express from "express";
+import { appContext } from "~/context";
+import { userServicePort } from "~/context/ports";
 import { db } from "~/db/drizzle";
 import { users } from "~/db/drizzle/schema";
 import { createInMemoryCacheClient } from "~/modules/cache/in-memory";
 import { createRedisCacheClient } from "~/modules/cache/redis";
 import { createAdapter, createContext, createPort } from "~/modules/hexagonal";
+
+// This file contains a simple Express server that demonstrates how to use the
+// various features of the starter kit. In a real project, you'll probably
+// replace this file with your own server implementation.
 
 const app = express();
 const port = 3000;
@@ -62,7 +68,14 @@ app.get("/drizzle-example", async (req, res) => {
   res.send(JSON.stringify(selectedUser));
 });
 
-app.get("/hexagonal-example", async (req, res) => {
+app.get("/hexagonal-example-1", async (req, res) => {
+  // A simple example of creating a "Hello, World!" application using the
+  // hexagonal helpers. This example demonstrates how to create ports and
+  // adapters, and how to bind them to a context. It also shows how to create
+  // adapters that depend on other ports. In a real project, you'll probably
+  // create a global "app context" in some other file and use it throughout
+  // your application.
+
   const helloPort = createPort<{ sayHello: () => string }>("hello");
   const helloAdapter = createAdapter(helloPort, () => ({
     sayHello: () => "Hello",
@@ -91,4 +104,22 @@ app.get("/hexagonal-example", async (req, res) => {
 
   const helloWorld = context.getAdapter(helloWorldPort);
   res.send(helloWorld.sayHelloWorld());
+});
+
+app.get("/hexagonal-example-2", async (req, res) => {
+  // A more realistic example of using hexagonal architecture. This example
+  // imports the appContext from src/context/index.ts, which is already set up
+  // with all the ports and adapters needed for the application.
+
+  // TODO: can we have have appContext know which ports are available and give
+  // us type hints for them? Right now, we have to manually import the ports
+  // from where they're defined, but it would be nice if we could just type the
+  // port name and have it autocomplete the available ports.
+  const userService = appContext.getAdapter(userServicePort);
+  const { id } = await userService.createUser(
+    faker.person.firstName(),
+    faker.person.lastName(),
+  );
+  const user = await userService.getUserById(id);
+  res.send(JSON.stringify(user));
 });
