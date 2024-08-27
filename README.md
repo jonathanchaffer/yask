@@ -14,6 +14,7 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 - ORM and migrations with [Drizzle](https://orm.drizzle.team/)
 - Hexagonal dependency injection context
 - Pre-commit checks with [Husky](https://typicode.github.io/husky/)
+- Type-safe environment variable access with [Zod](https://zod.dev/)
 
 ## Local development setup
 
