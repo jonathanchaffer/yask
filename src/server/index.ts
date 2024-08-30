@@ -112,14 +112,10 @@ app.get("/hexagonal-example-1", async (req, res) => {
 });
 
 app.get("/hexagonal-example-2", async (req, res) => {
-  // A more realistic example of using hexagonal architecture. This example
+  // A more realistic example usage of hexagonal architecture. This example
   // imports the appContext from src/context/index.ts, which is already set up
   // with all the ports and adapters needed for the application.
 
-  // TODO: can we have have appContext know which ports are available and give
-  // us type hints for them? Right now, we have to manually import the ports
-  // from where they're defined, but it would be nice if we could just type the
-  // port name and have it autocomplete the available ports.
   const userService = appContext.getAdapter("userService");
   const { id } = await userService.createUser(
     faker.person.firstName(),

@@ -1,4 +1,4 @@
-import { dbPort } from "~/context/ports";
+import { dbPort } from "~/db/port";
 import { createAdapter } from "~/modules/hexagonal";
 import { db } from ".";
 
