@@ -8,6 +8,8 @@ jobs:
       - uses: hoverkraft-tech/compose-action@v2.0.1
         with:
           compose-file: docker-compose.yml
+      - run: cp .env.example .env
+      - uses: xom9ikk/dotenv@v2.3.0
       - name: Run tests
         run: |
           npm install
