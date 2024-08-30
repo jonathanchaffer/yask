@@ -24,13 +24,6 @@ export function createAdapter<
   return builder;
 }
 
-export function createBinding<
-  TPort extends HexagonalPort,
-  TDependency extends HexagonalPort,
->(port: TPort, adapterBuilder: HexagonalAdapterBuilder<TDependency, TPort>) {
-  return [port, adapterBuilder];
-}
-
 export function createContext<
   TPorts extends HexagonalPort[],
   TDependencies extends HexagonalPort[] | never = never,
