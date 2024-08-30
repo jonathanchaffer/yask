@@ -48,6 +48,7 @@ export function createContext<
       throw new Error(
         `Adapter not found for port '${portName}'. Did you forget to bind it?`,
       );
+    // @ts-expect-error - don't know whether the mapping requires a context or not
     return mapping({ getAdapter });
   }
 

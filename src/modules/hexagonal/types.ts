@@ -12,7 +12,9 @@ export type HexagonalAdapterBuilder<
   TDependency extends HexagonalPort,
   TPort extends HexagonalPort,
 > = (
-  ctx: HexagonalContext<TDependency["name"], TDependency>,
+  ...rest: TDependency["name"] extends never
+    ? []
+    : [HexagonalContext<TDependency["name"], TDependency>]
 ) => HexagonalAdapter<TPort>;
 
 export type HexagonalContext<

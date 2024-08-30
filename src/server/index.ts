@@ -4,8 +4,8 @@ import express from "express";
 import { appContext } from "~/context";
 import { db } from "~/db/drizzle";
 import { users } from "~/db/drizzle/schema";
-import { createInMemoryCacheClient } from "~/modules/cache/in-memory";
-import { createRedisCacheClient } from "~/modules/cache/redis";
+import { inMemoryCacheAdapter } from "~/modules/cache/adapters/in-memory";
+import { redisCacheAdapter } from "~/modules/cache/adapters/redis";
 import { createAdapter, createContext, createPort } from "~/modules/hexagonal";
 
 // This file contains a simple Express server that demonstrates how to use the
@@ -24,7 +24,7 @@ app.listen(port, () => {
 });
 
 app.get("/redis-cache-example", async (req, res) => {
-  const cacheClient = createRedisCacheClient();
+  const cacheClient = redisCacheAdapter();
 
   const keyToStore = "some-key";
   const valueToStore = "I'm a value coming from Redis!";
@@ -37,7 +37,7 @@ app.get("/redis-cache-example", async (req, res) => {
 });
 
 app.get("/in-memory-cache-example", async (req, res) => {
-  const cacheClient = createInMemoryCacheClient();
+  const cacheClient = inMemoryCacheAdapter();
 
   const keyToStore = "some-key";
   const valueToStore = "I'm a value coming from in-memory cache!";
