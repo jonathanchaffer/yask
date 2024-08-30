@@ -1,14 +1,15 @@
 import { createClient } from "redis";
-import { CacheClient } from "./types";
+import { cachePort } from "~/modules/cache/port";
+import { createAdapter } from "~/modules/hexagonal";
 
-/**  Cache client that stores data in Redis. */
-export const createRedisCacheClient = (): CacheClient => {
+export const redisCacheAdapter = createAdapter(cachePort, [], () => {
   const client = createClient();
 
   return {
     connect: async () => client.connect(),
+    disconnect: async () => client.disconnect(),
     get: async (key) => client.get(key),
     set: async (key, value) => client.set(key, value),
     clear: async () => client.flushAll(),
   };
-};
+});

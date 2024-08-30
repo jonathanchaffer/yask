@@ -1,14 +1,30 @@
 import { z } from "zod";
-import { CACHE_CLIENT_CONSTRUCTORS, createCacheStore } from ".";
-import { createInMemoryCacheClient } from "./in-memory";
+import { createCacheStore } from ".";
+import { inMemoryCacheAdapter } from "./adapters/in-memory";
+import { redisCacheAdapter } from "./adapters/redis";
 
 // Run the same tests for each cache client implementation to ensure they all
 // work the same way.
 
-describe.each(Object.entries(CACHE_CLIENT_CONSTRUCTORS))(
+const CACHE_ADAPTERS = {
+  inMemory: inMemoryCacheAdapter,
+  redis: redisCacheAdapter,
+};
+
+describe.each(Object.entries(CACHE_ADAPTERS))(
   "%s cache client",
   (name, createCacheClient) => {
     describe("basic cache client", () => {
+      it("throws an error if the client is not connected", async () => {
+        const client = createCacheClient();
+
+        await expect(client.get("foo")).rejects.toThrow("The client is closed");
+        await expect(client.set("foo", "bar")).rejects.toThrow(
+          "The client is closed",
+        );
+        await expect(client.clear()).rejects.toThrow("The client is closed");
+      });
+
       it("can store and retrieve values", async () => {
         const client = createCacheClient();
         await client.connect();
@@ -68,7 +84,7 @@ describe.each(Object.entries(CACHE_CLIENT_CONSTRUCTORS))(
             keyFormatter: (key) => `${key}`,
             valueSchema: z.number(),
           },
-          createInMemoryCacheClient(),
+          inMemoryCacheAdapter(),
         );
 
         // @ts-expect-error - value should be a number, not a string

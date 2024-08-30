@@ -1,12 +1,7 @@
 import { z } from "zod";
-import { createInMemoryCacheClient } from "./in-memory";
-import { createRedisCacheClient } from "./redis";
+import { createAdapter, createPort } from "~/modules/hexagonal";
+import { cachePort } from "./port";
 import { CacheClient, CacheStoreConfig } from "./types";
-
-export const CACHE_CLIENT_CONSTRUCTORS = {
-  redis: createRedisCacheClient,
-  inMemory: createInMemoryCacheClient,
-};
 
 /**
  * Create a cache "store" that wraps a cache client and enforces a specific key
@@ -18,6 +13,7 @@ export function createCacheStore<K extends z.ZodType, V extends z.ZodType>(
 ): CacheClient<K, V> {
   return {
     connect: () => cacheClient.connect(),
+    disconnect: () => cacheClient.disconnect(),
     get: async (key) => {
       const formattedKey = config.keyFormatter(key);
       const value = await cacheClient.get(formattedKey);
@@ -36,4 +32,18 @@ export function createCacheStore<K extends z.ZodType, V extends z.ZodType>(
     },
     clear: cacheClient.clear,
   };
+}
+
+export function createCacheStorePortAndAdapter<
+  TPortName extends string,
+  K extends z.ZodType,
+  V extends z.ZodType,
+>(portName: TPortName, config: CacheStoreConfig<K, V>) {
+  const port = createPort<CacheClient<K, V>, TPortName>(portName);
+
+  const adapter = createAdapter(port, [cachePort], (context) =>
+    createCacheStore(config, context.getAdapter("cache")),
+  );
+
+  return { port, adapter };
 }

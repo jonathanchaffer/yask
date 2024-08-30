@@ -5,6 +5,7 @@ export type CacheClient<
   V extends z.ZodType = z.ZodString,
 > = {
   connect: () => Promise<unknown>;
+  disconnect: () => Promise<unknown>;
   get: (key: z.infer<K>) => Promise<z.infer<V> | null>;
   set: (key: z.infer<K>, value: z.infer<V>) => Promise<z.infer<V> | null>;
   clear: () => Promise<unknown>;
