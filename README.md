@@ -44,10 +44,12 @@ Scripts are organized as parent and child commands, separated by `:` (e.g. `test
 ## Directory structure
 
 - `.github/`: GitHub Actions workflows.
+- `.husky/`: Husky configuration.
 - `.vscode/`: Visual Studio Code settings and recommended extensions.
 - `src/`: Contains all the source code for the application itself. Scripts, configurations, etc. that don't directly interact with the application should be put somewhere else.
   - `db/`: Contains all database-related code for the application.
-  - `modules/`: Contains generic, non-application-specific modules that can be used across different parts of the codebase.
+  - `modules/`: Generic, non-application-specific modules that can be used across different parts of the codebase.
     - `cache/`: Cache interface and implementatios in Redis and in-memory.
     - `hexagonal/`: Hexagonal architecture implementation.
-  - `logic/`: Contains the business logic of the application.
+  - `repositories/`: Persistence-level "repositories" that operate on database entities.
+  - `services/`: Data and logic "services" that serve as an abstraction between repositories and the front-end.
