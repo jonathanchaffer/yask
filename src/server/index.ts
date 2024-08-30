@@ -2,7 +2,6 @@ import { faker } from "@faker-js/faker";
 import { eq } from "drizzle-orm";
 import express from "express";
 import { appContext } from "~/context";
-import { userServicePort } from "~/context/ports";
 import { db } from "~/db/drizzle";
 import { users } from "~/db/drizzle/schema";
 import { createInMemoryCacheClient } from "~/modules/cache/in-memory";
@@ -76,33 +75,39 @@ app.get("/hexagonal-example-1", async (req, res) => {
   // create a global "app context" in some other file and use it throughout
   // your application.
 
-  const helloPort = createPort<{ sayHello: () => string }>("hello");
-  const helloAdapter = createAdapter(helloPort, () => ({
+  const helloPort = createPort<{ sayHello: () => string }, "hello">("hello");
+  const helloAdapter = createAdapter(helloPort, [], () => ({
     sayHello: () => "Hello",
   }));
 
-  const worldPort = createPort<{ sayWorld: () => string }>("world");
-  const worldAdapter = createAdapter(worldPort, () => ({
+  const worldPort = createPort<{ sayWorld: () => string }, "world">("world");
+  const worldAdapter = createAdapter(worldPort, [], () => ({
     sayWorld: () => "World",
   }));
 
-  const helloWorldPort = createPort<{ sayHelloWorld: () => string }>(
-    "helloWorld",
+  const helloWorldPort = createPort<
+    { sayHelloWorld: () => string },
+    "helloWorld"
+  >("helloWorld");
+  const helloWorldAdapter = createAdapter(
+    helloWorldPort,
+    [helloPort, worldPort],
+    (ctx) => {
+      const hello = ctx.getAdapter("hello");
+      const world = ctx.getAdapter("world");
+      return {
+        sayHelloWorld: () => `${hello.sayHello()}, ${world.sayWorld()}!`,
+      };
+    },
   );
-  const helloWorldAdapter = createAdapter(helloWorldPort, (ctx) => {
-    const hello = ctx.getAdapter(helloPort);
-    const world = ctx.getAdapter(worldPort);
-    return {
-      sayHelloWorld: () => `${hello.sayHello()}, ${world.sayWorld()}!`,
-    };
-  });
 
-  const context = createContext();
-  context.bindAdapter(helloPort, helloAdapter);
-  context.bindAdapter(worldPort, worldAdapter);
-  context.bindAdapter(helloWorldPort, helloWorldAdapter);
+  const context = createContext([
+    [helloPort, helloAdapter],
+    [worldPort, worldAdapter],
+    [helloWorldPort, helloWorldAdapter],
+  ]);
 
-  const helloWorld = context.getAdapter(helloWorldPort);
+  const helloWorld = context.getAdapter("helloWorld");
   res.send(helloWorld.sayHelloWorld());
 });
 
@@ -115,7 +120,7 @@ app.get("/hexagonal-example-2", async (req, res) => {
   // us type hints for them? Right now, we have to manually import the ports
   // from where they're defined, but it would be nice if we could just type the
   // port name and have it autocomplete the available ports.
-  const userService = appContext.getAdapter(userServicePort);
+  const userService = appContext.getAdapter("userService");
   const { id } = await userService.createUser(
     faker.person.firstName(),
     faker.person.lastName(),

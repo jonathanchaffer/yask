@@ -1,10 +1,11 @@
 import { eq } from "drizzle-orm";
-import { userRepositoryPort } from "~/context/ports";
+import { dbPort, userRepositoryPort } from "~/context/ports";
 import { users } from "~/db/drizzle/schema";
 import { createAdapter } from "~/modules/hexagonal";
 
 export const dbUserRepositoryAdapter = createAdapter(
   userRepositoryPort,
+  [dbPort],
   (context) => {
     const db = context.getAdapter("db");
 

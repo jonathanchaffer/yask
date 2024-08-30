@@ -9,7 +9,3 @@ export const appContext = createContext([
   [userRepositoryPort, dbUserRepositoryAdapter],
   [userServicePort, userServiceAdapter],
 ]);
-
-appContext.bindAdapter("db", drizzleDbAdapter);
-appContext.bindAdapter("userRepositoryPort", dbUserRepositoryAdapter);
-appContext.bindAdapter("userService", userServiceAdapter);
