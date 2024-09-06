@@ -1,14 +1,14 @@
 import { createAdapter, createContext, createPort } from ".";
 
 describe("createPort", () => {
-  it("creates a hexagonal port", () => {
+  it("can create a hexagonal port", () => {
     const dummyPort = createPort("dummy");
     expect(dummyPort).toEqual({ name: "dummy" });
   });
 });
 
 describe("createAdapter", () => {
-  it("creates a hexagonal adapter builder for a given port", () => {
+  it("can create a hexagonal adapter builder for a given port", () => {
     const dummyPort = createPort("dummy");
 
     const myAdapter = createAdapter(dummyPort, [], () => {});

@@ -14,7 +14,7 @@ export type HexagonalAdapterBuilder<
 > = (
   ...rest: TDependency["name"] extends never
     ? []
-    : [HexagonalContext<TDependency["name"], TDependency>]
+    : [HexagonalContext<TDependency["name"], TDependency | HexagonalPort>]
 ) => HexagonalAdapter<TPort>;
 
 export type HexagonalContext<

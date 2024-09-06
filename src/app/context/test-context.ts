@@ -8,7 +8,6 @@ import { dbPort } from "~/db/port";
 import { inMemoryCacheAdapter } from "~/modules/cache/adapters/in-memory";
 import { cachePort } from "~/modules/cache/port";
 import { createContext } from "~/modules/hexagonal";
-import { appContext } from ".";
 
 if (process.env.NODE_ENV !== "test") {
   throw new Error("This file should only be imported in test files");
@@ -23,7 +22,7 @@ const testContext = createContext([
 ]);
 
 export const withTestContext =
-  (fn: (context: typeof appContext) => void | Promise<void>) => async () => {
+  (fn: (context: typeof testContext) => void | Promise<void>) => async () => {
     await testContext.getAdapter("db").truncate();
     await testContext.getAdapter("cache").connect();
     await testContext.getAdapter("cache").clear();
