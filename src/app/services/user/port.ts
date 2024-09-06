@@ -1,6 +1,6 @@
 import { createPort } from "~/modules/hexagonal";
 
-type User = { id: string; fullName: string };
+export type User = { id: string; fullName: string };
 
 export const userServicePort = createPort<
   {
