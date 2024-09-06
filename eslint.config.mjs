@@ -56,7 +56,11 @@ export default [
     },
   },
   // Directory-specific import restrictions.
-  disallowImports({ in: "app/services", from: ["db"] }),
   disallowImports({ in: "modules", from: ["db", "app"] }),
   disallowImports({ in: "db", from: ["app"] }),
+  disallowImports({ in: "app/services", from: ["db"] }),
+  disallowImports({
+    in: "app/server",
+    from: ["db", "app/repositories", "modules"],
+  }),
 ];

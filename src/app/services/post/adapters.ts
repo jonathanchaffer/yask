@@ -21,6 +21,9 @@ export const postServiceAdapter = createAdapter(
           content: post.content,
         }));
       },
+      createPost: async (userId, title, content) => {
+        await postRepository.createPost(userId, title, content);
+      },
     };
   },
 );

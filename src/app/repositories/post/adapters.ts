@@ -18,6 +18,13 @@ export const postRepositoryAdapter = createAdapter(
 
         return postsForUser;
       },
+      createPost: async (userId, title, content) => {
+        await db.insert(posts).values({
+          userId,
+          title,
+          content,
+        });
+      },
     };
   },
 );
