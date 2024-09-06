@@ -5,6 +5,6 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 export default defineConfig({
-  test: { globals: true },
+  test: { globals: true, minWorkers: 1, maxWorkers: 1 },
   plugins: [tsconfigPaths()],
 });

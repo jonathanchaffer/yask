@@ -24,6 +24,9 @@ export const userRepositoryAdapter = createAdapter(
         });
 
         if (!user) throw new Error(`User with id ${id} not found`);
+
+        await cacheStore.set({ id }, user);
+
         return user;
       },
       createUser: async (firstName, lastName) => {

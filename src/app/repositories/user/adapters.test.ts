@@ -1,5 +1,5 @@
 import { withTestContext } from "~/app/context/test-context";
-import { users } from "~/db/drizzle/schema";
+import { blueprints } from "~/db/blueprints";
 import { userRepositoryAdapter } from "./adapters";
 
 describe("userRepositoryAdapter", () => {
@@ -7,15 +7,11 @@ describe("userRepositoryAdapter", () => {
     it(
       "gets a user from the database",
       withTestContext(async (context) => {
-        await context
-          .getAdapter("db")
-          .db.insert(users)
-          .values({
-            id: "00000000-0000-0000-0000-000000000001",
-            firstName: "John",
-            lastName: "Doe",
-          })
-          .execute();
+        await blueprints.users(context, {
+          id: "00000000-0000-0000-0000-000000000001",
+          firstName: "John",
+          lastName: "Doe",
+        });
 
         const adapter = userRepositoryAdapter(context);
 
@@ -51,6 +47,29 @@ describe("userRepositoryAdapter", () => {
           id: "00000000-0000-0000-0000-000000000001",
           firstName: "Foo",
           lastName: "Bar",
+        });
+      }),
+    );
+    it(
+      "caches the user after fetching it from the database",
+      withTestContext(async (context) => {
+        await blueprints.users(context, {
+          id: "00000000-0000-0000-0000-000000000001",
+          firstName: "John",
+          lastName: "Doe",
+        });
+
+        const adapter = userRepositoryAdapter(context);
+
+        await adapter.getUserById("00000000-0000-0000-0000-000000000001");
+
+        const cachedUser = await context.getAdapter("userCacheStore").get({
+          id: "00000000-0000-0000-0000-000000000001",
+        });
+        expect(cachedUser).toEqual({
+          id: "00000000-0000-0000-0000-000000000001",
+          firstName: "John",
+          lastName: "Doe",
         });
       }),
     );

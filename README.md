@@ -15,6 +15,7 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 - Linting & import restrictions with [ESLint](https://eslint.org/)
 - Hexagonal dependency injection context
 - Continuous integration with [GitHub Actions](https://github.com/features/actions)
+- Random test data generation with [blueprints](src/db/blueprints/index.ts)
 - Type-safe environment variable access with [Zod](https://zod.dev/)
 
 ## Local development setup
@@ -51,6 +52,8 @@ Scripts are organized as parent and child commands, separated by `:` (e.g. `test
     - [`services/`](src/app/services): Data and logic "services" that serve as an abstraction between repositories and the front-end.
     - [`stores/`](src/app/stores/): Cache "stores" that help manage cached data in a type-safe way.
   - [`db/`](src/db/): Database schema, migrations, and helpers.
+    - [`drizzle/`](src/db/drizzle/): Drizzle schema definition, migrations, and helpers.
+    - [`blueprints/`](src/db/blueprints/): Helpers for generating test data in the database.
   - [`modules/`](src/modules/): Generic, non-application-specific utilities. Even though these are non-app-specific, you're free to customize and/or add to them to fit your needs, but keep them decoupled from application-specific logic.
     - [`cache/`](src/modules/cache/): Cache interface and implementations.
     - [`hexagonal/`](src/modules/hexagonal/): Hexagonal architecture implementation.
