@@ -4,23 +4,23 @@ jobs:
     name: 🧪 test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: hoverkraft-tech/compose-action@v2.0.1
+      - name: checkout repo
+        uses: actions/checkout@v2
+      - name: start docker-compose
+        uses: hoverkraft-tech/compose-action@v2.0.1
         with:
           compose-file: docker-compose.yml
       - run: cp .env.example .env
-      - uses: xom9ikk/dotenv@v2.3.0
-      - name: Run tests
-        run: |
-          npm install
-          npm run migrate
-          npm run test
+      - name: setup env
+        uses: xom9ikk/dotenv@v2.3.0
+      - run: npm install
+      - run: npm run migrate
+      - run: npm run test
   check:
     name: ✅ check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Run checks
-        run: |
-          npm install
-          npm run check
+      - name: checkout repo
+        uses: actions/checkout@v2
+      - run: npm install
+      - run: npm run check
