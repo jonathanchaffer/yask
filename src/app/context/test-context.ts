@@ -21,6 +21,19 @@ const testContext = createContext([
   [userServicePort, userServiceAdapter],
 ]);
 
+/**
+ * Helper to run tests with a "test context" that follows the same structure as
+ * the app context, but uses mock implementations for some of the ports.
+ *
+ * @example
+ * describe("my test", () => {
+ *   it("does something", withTestContext(async (context) => {
+ *     const adapterToTest = myAdapter(context);
+ *     const result = await adapterToTest.doSomething();
+ *     expect(result).toEqual("expected result");
+ *   })
+ * );
+ */
 export const withTestContext =
   (fn: (context: typeof testContext) => void | Promise<void>) => async () => {
     await testContext.getAdapter("db").truncate();
