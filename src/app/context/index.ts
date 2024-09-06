@@ -1,13 +1,13 @@
-import { userCacheStoreAdapter, userCacheStorePort } from "~/cache-stores/user";
+import { userRepositoryAdapter } from "~/app/repositories/user/adapters";
+import { userRepositoryPort } from "~/app/repositories/user/port";
+import { userServiceAdapter } from "~/app/services/user/adapters";
+import { userServicePort } from "~/app/services/user/port";
+import { userCacheStoreAdapter, userCacheStorePort } from "~/app/stores/user";
 import { drizzleDbAdapter } from "~/db/drizzle/adapter";
 import { dbPort } from "~/db/port";
 import { redisCacheAdapter } from "~/modules/cache/adapters/redis";
 import { cachePort } from "~/modules/cache/port";
 import { createContext } from "~/modules/hexagonal";
-import { userRepositoryAdapter } from "~/repositories/user/adapters";
-import { userRepositoryPort } from "~/repositories/user/port";
-import { userServiceAdapter } from "~/services/user/adapters";
-import { userServicePort } from "~/services/user/port";
 
 // This file creates the appContext, a hexagonal context object set up with all
 // the ports and adapters used by the application. The ports and adapters

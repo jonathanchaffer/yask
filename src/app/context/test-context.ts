@@ -1,13 +1,13 @@
-import { userCacheStoreAdapter, userCacheStorePort } from "~/cache-stores/user";
+import { userRepositoryAdapter } from "~/app/repositories/user/adapters";
+import { userRepositoryPort } from "~/app/repositories/user/port";
+import { userServiceAdapter } from "~/app/services/user/adapters";
+import { userServicePort } from "~/app/services/user/port";
+import { userCacheStoreAdapter, userCacheStorePort } from "~/app/stores/user";
 import { drizzleDbAdapter } from "~/db/drizzle/adapter";
 import { dbPort } from "~/db/port";
 import { inMemoryCacheAdapter } from "~/modules/cache/adapters/in-memory";
 import { cachePort } from "~/modules/cache/port";
 import { createContext } from "~/modules/hexagonal";
-import { userRepositoryAdapter } from "~/repositories/user/adapters";
-import { userRepositoryPort } from "~/repositories/user/port";
-import { userServiceAdapter } from "~/services/user/adapters";
-import { userServicePort } from "~/services/user/port";
 import { appContext } from ".";
 
 if (process.env.NODE_ENV !== "test") {

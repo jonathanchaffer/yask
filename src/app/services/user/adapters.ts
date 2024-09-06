@@ -1,5 +1,5 @@
+import { userRepositoryPort } from "~/app/repositories/user/port";
 import { createAdapter } from "~/modules/hexagonal";
-import { userRepositoryPort } from "~/repositories/user/port";
 import { userServicePort } from "./port";
 
 export const userServiceAdapter = createAdapter(

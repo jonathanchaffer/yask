@@ -34,6 +34,9 @@ export function createCacheStore<K extends z.ZodType, V extends z.ZodType>(
   };
 }
 
+/**
+ * Helper to generate a hexagonal port and adapter for a cache store.
+ */
 export function createCacheStorePortAndAdapter<
   TPortName extends string,
   K extends z.ZodType,

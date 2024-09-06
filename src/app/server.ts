@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { eq } from "drizzle-orm";
 import express from "express";
-import { appContext } from "~/context";
+import { appContext } from "~/app/context";
 import { db } from "~/db/drizzle";
 import { users } from "~/db/drizzle/schema";
 import { inMemoryCacheAdapter } from "~/modules/cache/adapters/in-memory";

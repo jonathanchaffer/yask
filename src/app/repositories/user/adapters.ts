@@ -1,5 +1,5 @@
 import { eq } from "drizzle-orm";
-import { userCacheStorePort } from "~/cache-stores/user";
+import { userCacheStorePort } from "~/app/stores/user";
 import { users } from "~/db/drizzle/schema";
 import { dbPort } from "~/db/port";
 import { createAdapter } from "~/modules/hexagonal";
