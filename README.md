@@ -5,7 +5,7 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 ## Features
 
 - Development in [TypeScript](https://www.typescriptlang.org/)
-- Linting with [ESLint](https://eslint.org/)
+- Linting & directory-specific import restrictions with [ESLint](https://eslint.org/)
 - Formatting with [Prettier](https://prettier.io/)
 - Local environment setup with [Docker](https://www.docker.com/)
 - Unit testing with [Vitest](https://vitest.dev/)
