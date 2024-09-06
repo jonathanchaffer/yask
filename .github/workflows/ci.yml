@@ -13,6 +13,7 @@ jobs:
       - name: Run tests
         run: |
           npm install
+          npm run migrate
           npm run test
   check:
     name: ✅ check
