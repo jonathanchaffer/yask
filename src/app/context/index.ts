@@ -1,3 +1,5 @@
+import { postRepositoryAdapter } from "~/app/repositories/post/adapters";
+import { postRepositoryPort } from "~/app/repositories/post/port";
 import { userRepositoryAdapter } from "~/app/repositories/user/adapters";
 import { userRepositoryPort } from "~/app/repositories/user/port";
 import { userServiceAdapter } from "~/app/services/user/adapters";
@@ -24,4 +26,5 @@ export const appContext = createContext([
   [userCacheStorePort, userCacheStoreAdapter],
   [userRepositoryPort, userRepositoryAdapter],
   [userServicePort, userServiceAdapter],
+  [postRepositoryPort, postRepositoryAdapter],
 ]);
