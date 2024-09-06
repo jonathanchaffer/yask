@@ -4,18 +4,18 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 
 ## Features
 
-- Development in [TypeScript](https://www.typescriptlang.org/)
-- Linting & directory-specific import restrictions with [ESLint](https://eslint.org/)
-- Formatting with [Prettier](https://prettier.io/)
-- Local environment setup with [Docker](https://www.docker.com/)
-- Unit testing with [Vitest](https://vitest.dev/)
 - Caching with [Redis](https://redis.io/)
-- Data persistence with [PostgreSQL](https://www.postgresql.org/)
-- ORM and migrations with [Drizzle](https://orm.drizzle.team/)
-- Hexagonal dependency injection context
+- Unit testing with [Vitest](https://vitest.dev/)
+- Formatting with [Prettier](https://prettier.io/)
+- Development in [TypeScript](https://www.typescriptlang.org/)
 - Pre-push checks with [Husky](https://typicode.github.io/husky/)
-- Type-safe environment variable access with [Zod](https://zod.dev/)
+- ORM and migrations with [Drizzle](https://orm.drizzle.team/)
+- Data persistence with [PostgreSQL](https://www.postgresql.org/)
+- Local environment setup with [Docker](https://www.docker.com/)
+- Linting & import restrictions with [ESLint](https://eslint.org/)
+- Hexagonal dependency injection context
 - Continuous integration with [GitHub Actions](https://github.com/features/actions)
+- Type-safe environment variable access with [Zod](https://zod.dev/)
 
 ## Local development setup
 
