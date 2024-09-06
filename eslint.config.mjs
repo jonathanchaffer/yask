@@ -9,7 +9,7 @@ const baseImportRestrictions = ["..*"];
  * Generate a config that disallows imports from a specified directory in the
  * specified files.
  */
-const restrictImports = (args) => {
+const disallowImports = (args) => {
   return {
     files: [`src/${args.in}/**/*.{js,mjs,cjs,ts}`],
     rules: {
@@ -56,5 +56,7 @@ export default [
     },
   },
   // Directory-specific import restrictions.
-  restrictImports({ in: "app/services", from: ["db"] }),
+  disallowImports({ in: "app/services", from: ["db"] }),
+  disallowImports({ in: "modules", from: ["db", "app"] }),
+  disallowImports({ in: "db", from: ["app"] }),
 ];
