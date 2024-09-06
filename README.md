@@ -15,6 +15,7 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 - Hexagonal dependency injection context
 - Pre-push checks with [Husky](https://typicode.github.io/husky/)
 - Type-safe environment variable access with [Zod](https://zod.dev/)
+- Continuous integration with [GitHub Actions](https://github.com/features/actions)
 
 ## Local development setup
 
