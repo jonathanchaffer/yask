@@ -16,14 +16,21 @@ if (process.env.NODE_ENV !== "test") {
  * blueprints should be defined here. The type of this object enforces that
  * every table in the schema has a corresponding blueprint.
  */
-export const blueprints: Record<
-  keyof typeof schema,
-  Blueprint<keyof typeof schema>
-> = {
+export const blueprints: {
+  [TTable in keyof typeof schema]: Blueprint<TTable>;
+} = {
   users: createBlueprint("users", () => {
     return {
       firstName: faker.person.firstName(),
       lastName: faker.person.lastName(),
+    };
+  }),
+  posts: createBlueprint("posts", async (context) => {
+    const user = await blueprints.users(context);
+    return {
+      userId: user.id,
+      title: faker.lorem.sentence(),
+      content: faker.lorem.paragraph(),
     };
   }),
 };

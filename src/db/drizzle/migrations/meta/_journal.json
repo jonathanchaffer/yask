@@ -15,6 +15,13 @@
       "when": 1725036222297,
       "tag": "0001_jittery_lily_hollister",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1725644821951,
+      "tag": "0002_zippy_morph",
+      "breakpoints": true
     }
   ]
 }
