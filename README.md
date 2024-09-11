@@ -1,4 +1,4 @@
-# TypeScript Starter Kit
+# YASK (Yet Another Starter Kit)
 
 Template repository for TypeScript applications. Mostly focuses on back-end code, with the ability to plug in whichever front-end framework you prefer.
 
