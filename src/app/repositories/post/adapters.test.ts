@@ -1,6 +1,6 @@
 import { withTestContext } from "~/app/context/test-context";
 import { blueprints } from "~/db/blueprints";
-import { postRepositoryAdapter } from "./adapters";
+import { mockPostRepositoryAdapter, postRepositoryAdapter } from "./adapters";
 import { PostRecord } from "./port";
 
 describe("postRepositoryAdapter", () => {
@@ -40,5 +40,35 @@ describe("postRepositoryAdapter", () => {
         });
       }),
     );
+  });
+});
+
+describe("mockPostRepositoryAdapter", () => {
+  describe("getPostsByUserId", () => {
+    it("returns a list of posts", async () => {
+      const adapter = mockPostRepositoryAdapter();
+
+      const posts = await adapter.getPostsByUserId(
+        "00000000-0000-0000-0000-000000000001",
+      );
+      expect(posts).toHaveLength(2);
+    });
+  });
+  describe("createPost", () => {
+    it("returns a new post", async () => {
+      const adapter = mockPostRepositoryAdapter();
+
+      const post = await adapter.createPost(
+        "00000000-0000-0000-0000-000000000001",
+        "title",
+        "content",
+      );
+      expect(post).toMatchObject<PostRecord>({
+        id: expect.any(String),
+        userId: "00000000-0000-0000-0000-000000000001",
+        title: "title",
+        content: "content",
+      });
+    });
   });
 });

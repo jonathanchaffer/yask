@@ -1,7 +1,7 @@
 import { User } from "~/app/services/user/port";
 import { createPort } from "~/modules/hexagonal";
 
-type Post = {
+export type Post = {
   id: string;
   user: User;
   title: string;
@@ -15,7 +15,7 @@ export const postServicePort = createPort<
       userId: string,
       title: string,
       content: string,
-    ) => Promise<void>;
+    ) => Promise<Post>;
   },
   "postService"
 >("postService");

@@ -11,7 +11,7 @@ export const postRepositoryPort = createPort<
       userId: string,
       title: string,
       content: string,
-    ) => Promise<void>;
+    ) => Promise<PostRecord>;
   },
   "postRepository"
 >("postRepository");

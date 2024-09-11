@@ -1,4 +1,6 @@
-import { userRepositoryAdapter } from "~/app/repositories/user/adapters";
+import { mockPostRepositoryAdapter } from "~/app/repositories/post/adapters";
+import { postRepositoryPort } from "~/app/repositories/post/port";
+import { mockUserRepositoryAdapter } from "~/app/repositories/user/adapters";
 import { userRepositoryPort } from "~/app/repositories/user/port";
 import { userServiceAdapter } from "~/app/services/user/adapters";
 import { userServicePort } from "~/app/services/user/port";
@@ -17,8 +19,9 @@ const testContext = createContext([
   [dbPort, drizzleDbAdapter],
   [cachePort, inMemoryCacheAdapter],
   [userCacheStorePort, userCacheStoreAdapter],
-  [userRepositoryPort, userRepositoryAdapter],
+  [userRepositoryPort, mockUserRepositoryAdapter],
   [userServicePort, userServiceAdapter],
+  [postRepositoryPort, mockPostRepositoryAdapter],
 ]);
 
 /**

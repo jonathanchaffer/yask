@@ -1,6 +1,6 @@
 import { withTestContext } from "~/app/context/test-context";
 import { blueprints } from "~/db/blueprints";
-import { userRepositoryAdapter } from "./adapters";
+import { mockUserRepositoryAdapter, userRepositoryAdapter } from "./adapters";
 
 describe("userRepositoryAdapter", () => {
   describe("getUserById", () => {
@@ -84,5 +84,34 @@ describe("userRepositoryAdapter", () => {
         );
       }),
     );
+  });
+});
+
+describe("mockUserRepositoryAdapter", () => {
+  describe("getUserById", () => {
+    it("returns a mock user", async () => {
+      const adapter = mockUserRepositoryAdapter();
+
+      const user = await adapter.getUserById(
+        "00000000-0000-0000-0000-000000000001",
+      );
+      expect(user).toEqual({
+        id: "00000000-0000-0000-0000-000000000001",
+        firstName: "John",
+        lastName: "Doe",
+      });
+    });
+  });
+  describe("createUser", () => {
+    it("returns a mock user", async () => {
+      const adapter = mockUserRepositoryAdapter();
+
+      const user = await adapter.createUser("Jane", "Smith");
+      expect(user).toEqual({
+        id: expect.any(String),
+        firstName: "Jane",
+        lastName: "Smith",
+      });
+    });
   });
 });
