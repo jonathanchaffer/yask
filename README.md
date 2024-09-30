@@ -5,6 +5,7 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 ## Features
 
 - Caching with [Redis](https://redis.io/)
+- Linting with [ESLint](https://eslint.org/)
 - Unit testing with [Vitest](https://vitest.dev/)
 - Formatting with [Prettier](https://prettier.io/)
 - Development in [TypeScript](https://www.typescriptlang.org/)
@@ -12,9 +13,9 @@ Template repository for TypeScript applications. Mostly focuses on back-end code
 - ORM and migrations with [Drizzle](https://orm.drizzle.team/)
 - Data persistence with [PostgreSQL](https://www.postgresql.org/)
 - Local environment setup with [Docker](https://www.docker.com/)
-- Linting & import restrictions with [ESLint](https://eslint.org/)
 - Hexagonal dependency injection context
 - Continuous integration with [GitHub Actions](https://github.com/features/actions)
+- Import restrictions with [Dependency Cruiser](https://github.com/sverweij/dependency-cruiser)
 - Random test data generation with [blueprints](src/db/blueprints/index.ts)
 - Type-safe environment variable access with [Zod](https://zod.dev/)
 
@@ -38,7 +39,7 @@ Scripts are organized as parent and child commands, separated by `:` (e.g. `test
 - `start`: Start the project using the compiled JavaScript files.
 - `dev`: Start the project in development mode. This template watches for changes in the TypeScript files and restarts the server when a change is detected.
 - `test`: Run tests.
-- `check`: Perform code checks (linting, formatting, type checking).
+- `check`: Perform code checks (linting, formatting, type checking, etc).
 - `fix`: Fix auto-fixable issues (linting, formatting).
 - `clean`: Delete auto-generated files.
 - `migrate`: Reset database; generate and run migrations.
