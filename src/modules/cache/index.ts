@@ -24,10 +24,7 @@ export function createCacheStore<K extends z.ZodType, V extends z.ZodType>(
     },
     set: async (key, value) => {
       const formattedKey = config.keyFormatter(key);
-      const storedValue = await cacheClient.set(
-        formattedKey,
-        JSON.stringify(value),
-      );
+      const storedValue = await cacheClient.set(formattedKey, JSON.stringify(value));
       return storedValue ? value : null;
     },
     clear: cacheClient.clear,

@@ -31,9 +31,7 @@ app.post("/api/users/create", async (req, res) => {
 
 app.get("/api/posts/:userId", async (req, res) => {
   const userId = req.params.userId;
-  const posts = await appContext
-    .getAdapter("postService")
-    .getPostsByUserId(userId);
+  const posts = await appContext.getAdapter("postService").getPostsByUserId(userId);
   res.send(posts);
 });
 

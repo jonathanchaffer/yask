@@ -6,9 +6,7 @@ let isConnected: boolean = false;
 
 export const inMemoryCacheAdapter = createAdapter(cachePort, [], () => {
   if (process.env.NODE_ENV !== "test") {
-    console.warn(
-      "In-memory cache client is not recommended for production use.",
-    );
+    console.warn("In-memory cache client is not recommended for production use.");
   }
 
   const throwIfNotConnected = () => {

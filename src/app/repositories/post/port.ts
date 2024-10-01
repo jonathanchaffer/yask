@@ -7,11 +7,7 @@ export type PostRecord = InferSelectModel<typeof posts>;
 export const postRepositoryPort = createPort<
   {
     getPostsByUserId: (userId: string) => Promise<PostRecord[]>;
-    createPost: (
-      userId: string,
-      title: string,
-      content: string,
-    ) => Promise<PostRecord>;
+    createPost: (userId: string, title: string, content: string) => Promise<PostRecord>;
   },
   "postRepository"
 >("postRepository");

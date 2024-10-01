@@ -17,9 +17,7 @@ it("can run all blueprints sequentially without errors", async () => {
 
 it("can run all blueprints in parallel without errors", async () => {
   await expect(
-    Promise.all(
-      Object.values(blueprints).map((blueprint) => blueprint(context)),
-    ),
+    Promise.all(Object.values(blueprints).map((blueprint) => blueprint(context))),
   ).resolves.not.toThrow();
 });
 

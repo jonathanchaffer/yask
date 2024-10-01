@@ -24,11 +24,7 @@ export const postServiceAdapter = createAdapter(
         return posts.map((p) => toPost(p, user));
       },
       createPost: async (userId, title, content) => {
-        const createdPost = await postRepository.createPost(
-          userId,
-          title,
-          content,
-        );
+        const createdPost = await postRepository.createPost(userId, title, content);
         return toPost(createdPost, await userService.getUserById(userId));
       },
     };

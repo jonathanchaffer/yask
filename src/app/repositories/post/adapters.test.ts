@@ -48,9 +48,7 @@ describe("mockPostRepositoryAdapter", () => {
     it("returns a list of posts", async () => {
       const adapter = mockPostRepositoryAdapter();
 
-      const posts = await adapter.getPostsByUserId(
-        "00000000-0000-0000-0000-000000000001",
-      );
+      const posts = await adapter.getPostsByUserId("00000000-0000-0000-0000-000000000001");
       expect(posts).toHaveLength(2);
     });
   });

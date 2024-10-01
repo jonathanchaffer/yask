@@ -85,18 +85,11 @@ describe("createContext", () => {
       sayWorld: () => "World",
     }));
 
-    const helloWorldPort = createPort<
-      { sayHelloWorld: () => string },
-      "helloWorld"
-    >("helloWorld");
-    const helloWorldAdapter = createAdapter(
-      helloWorldPort,
-      [helloPort, worldPort],
-      (context) => ({
-        sayHelloWorld: () =>
-          `${context.getAdapter("hello").sayHello()} ${context.getAdapter("world").sayWorld()}`,
-      }),
-    );
+    const helloWorldPort = createPort<{ sayHelloWorld: () => string }, "helloWorld">("helloWorld");
+    const helloWorldAdapter = createAdapter(helloWorldPort, [helloPort, worldPort], (context) => ({
+      sayHelloWorld: () =>
+        `${context.getAdapter("hello").sayHello()} ${context.getAdapter("world").sayWorld()}`,
+    }));
 
     const context = createContext([
       [helloPort, helloAdapter],
@@ -118,18 +111,11 @@ describe("createContext", () => {
       sayWorld: () => "World",
     }));
 
-    const helloWorldPort = createPort<
-      { sayHelloWorld: () => string },
-      "helloWorld"
-    >("helloWorld");
-    const helloWorldAdapter = createAdapter(
-      helloWorldPort,
-      [helloPort, worldPort],
-      (context) => ({
-        sayHelloWorld: () =>
-          `${context.getAdapter("hello").sayHello()} ${context.getAdapter("world").sayWorld()}`,
-      }),
-    );
+    const helloWorldPort = createPort<{ sayHelloWorld: () => string }, "helloWorld">("helloWorld");
+    const helloWorldAdapter = createAdapter(helloWorldPort, [helloPort, worldPort], (context) => ({
+      sayHelloWorld: () =>
+        `${context.getAdapter("hello").sayHello()} ${context.getAdapter("world").sayWorld()}`,
+    }));
 
     const context = createContext([
       [helloPort, helloAdapter],

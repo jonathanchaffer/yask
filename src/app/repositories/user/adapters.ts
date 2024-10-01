@@ -44,25 +44,21 @@ export const userRepositoryAdapter = createAdapter(
   },
 );
 
-export const mockUserRepositoryAdapter = createAdapter(
-  userRepositoryPort,
-  [],
-  () => {
-    if (process.env.NODE_ENV !== "test") {
-      throw new Error("Cannot use mock adapter outside of test environment");
-    }
+export const mockUserRepositoryAdapter = createAdapter(userRepositoryPort, [], () => {
+  if (process.env.NODE_ENV !== "test") {
+    throw new Error("Cannot use mock adapter outside of test environment");
+  }
 
-    return {
-      getUserById: async (id) => ({
-        id,
-        firstName: "John",
-        lastName: "Doe",
-      }),
-      createUser: async (firstName, lastName) => ({
-        id: faker.string.uuid(),
-        firstName,
-        lastName,
-      }),
-    };
-  },
-);
+  return {
+    getUserById: async (id) => ({
+      id,
+      firstName: "John",
+      lastName: "Doe",
+    }),
+    createUser: async (firstName, lastName) => ({
+      id: faker.string.uuid(),
+      firstName,
+      lastName,
+    }),
+  };
+});

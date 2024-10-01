@@ -11,11 +11,7 @@ export type Post = {
 export const postServicePort = createPort<
   {
     getPostsByUserId: (userId: string) => Promise<Post[]>;
-    createPost: (
-      userId: string,
-      title: string,
-      content: string,
-    ) => Promise<Post>;
+    createPost: (userId: string, title: string, content: string) => Promise<Post>;
   },
   "postService"
 >("postService");

@@ -7,7 +7,4 @@ import { db } from "./drizzle";
 // full-featured and generic, so unless we need to support multiple ORMs, it's a
 // worthy trade-off to use it directly here.
 
-export const dbPort = createPort<
-  { db: typeof db; truncate: () => Promise<void> },
-  "db"
->("db");
+export const dbPort = createPort<{ db: typeof db; truncate: () => Promise<void> }, "db">("db");

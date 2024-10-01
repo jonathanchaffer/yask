@@ -77,18 +77,14 @@ export function createContext<
   const bindingMap: Record<
     string,
     HexagonalAdapterBuilder<TDependencies[number], TPorts[number]>
-  > = Object.fromEntries(
-    bindings.map(([port, adapterBuilder]) => [port.name, adapterBuilder]),
-  );
+  > = Object.fromEntries(bindings.map(([port, adapterBuilder]) => [port.name, adapterBuilder]));
 
   function getAdapter<TName extends TPorts[number]["name"]>(
     portName: TName,
   ): HexagonalAdapter<Extract<TPorts[number], { name: TName }>> {
     const mapping = bindingMap[portName];
     if (!mapping)
-      throw new Error(
-        `Adapter not found for port '${portName}'. Did you forget to bind it?`,
-      );
+      throw new Error(`Adapter not found for port '${portName}'. Did you forget to bind it?`);
     // @ts-expect-error - don't know whether the mapping requires a context or not
     return mapping({ getAdapter });
   }

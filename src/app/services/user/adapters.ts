@@ -8,9 +8,7 @@ export const userServiceAdapter = createAdapter(
   (context) => {
     const userRepository = context.getAdapter("userRepository");
 
-    const toUser = (
-      userRecord: Awaited<ReturnType<typeof userRepository.getUserById>>,
-    ) => ({
+    const toUser = (userRecord: Awaited<ReturnType<typeof userRepository.getUserById>>) => ({
       id: userRecord.id,
       fullName: `${userRecord.firstName} ${userRecord.lastName}`,
     });

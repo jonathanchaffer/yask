@@ -49,10 +49,7 @@ export default [
 
       // Disallow relative imports from parent directories (e.g. `../foo`).
       // Relative imports from siblings (e.g. `./foo`) are still allowed.
-      "no-restricted-imports": [
-        "error",
-        { patterns: [...baseImportRestrictions] },
-      ],
+      "no-restricted-imports": ["error", { patterns: [...baseImportRestrictions] }],
     },
   },
   // Directory-specific import restrictions.

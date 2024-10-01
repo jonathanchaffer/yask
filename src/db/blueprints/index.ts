@@ -53,9 +53,7 @@ function createBlueprint<TTable extends keyof typeof schema>(
   table: TTable,
   defaults: (
     context: HexagonalContext<"db" | string, typeof dbPort | HexagonalPort>,
-  ) =>
-    | Promise<(typeof schema)[TTable]["$inferInsert"]>
-    | (typeof schema)[TTable]["$inferInsert"],
+  ) => Promise<(typeof schema)[TTable]["$inferInsert"]> | (typeof schema)[TTable]["$inferInsert"],
 ): Blueprint<TTable> {
   return async (context, data) => {
     return await context

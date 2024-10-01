@@ -15,9 +15,7 @@ describe("userRepositoryAdapter", () => {
 
         const adapter = userRepositoryAdapter(context);
 
-        const user = await adapter.getUserById(
-          "00000000-0000-0000-0000-000000000001",
-        );
+        const user = await adapter.getUserById("00000000-0000-0000-0000-000000000001");
         expect(user).toEqual({
           id: "00000000-0000-0000-0000-000000000001",
           firstName: "John",
@@ -40,9 +38,7 @@ describe("userRepositoryAdapter", () => {
 
         const adapter = userRepositoryAdapter(context);
 
-        const user = await adapter.getUserById(
-          "00000000-0000-0000-0000-000000000001",
-        );
+        const user = await adapter.getUserById("00000000-0000-0000-0000-000000000001");
         expect(user).toEqual({
           id: "00000000-0000-0000-0000-000000000001",
           firstName: "Foo",
@@ -79,9 +75,7 @@ describe("userRepositoryAdapter", () => {
         const adapter = userRepositoryAdapter(context);
         await expect(
           adapter.getUserById("00000000-0000-0000-0000-000000000001"),
-        ).rejects.toThrowError(
-          "User with id 00000000-0000-0000-0000-000000000001 not found",
-        );
+        ).rejects.toThrowError("User with id 00000000-0000-0000-0000-000000000001 not found");
       }),
     );
   });
@@ -92,9 +86,7 @@ describe("mockUserRepositoryAdapter", () => {
     it("returns a mock user", async () => {
       const adapter = mockUserRepositoryAdapter();
 
-      const user = await adapter.getUserById(
-        "00000000-0000-0000-0000-000000000001",
-      );
+      const user = await adapter.getUserById("00000000-0000-0000-0000-000000000001");
       expect(user).toEqual({
         id: "00000000-0000-0000-0000-000000000001",
         firstName: "John",
