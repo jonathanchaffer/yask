@@ -10,6 +10,12 @@ export const redisCacheAdapter = createAdapter(cachePort, [], () => {
     disconnect: async () => client.disconnect(),
     get: async (key) => client.get(key),
     set: async (key, value) => client.set(key, value),
-    clear: async () => client.flushAll(),
+    clear: async (prefix) => {
+      if (prefix === undefined) {
+        return client.flushAll();
+      }
+      const keys = await client.keys(`${prefix}*`);
+      return client.del(keys);
+    },
   };
 });

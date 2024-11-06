@@ -29,9 +29,14 @@ export const inMemoryCacheAdapter = createAdapter(cachePort, [], () => {
       cache.set(key, value);
       return value;
     },
-    clear: async () => {
+    clear: async (prefix) => {
       throwIfNotConnected();
-      return cache.clear();
+      if (prefix === undefined) {
+        cache.clear();
+        return;
+      }
+      const keys = Array.from(cache.keys()).filter((key) => key.startsWith(prefix ?? ""));
+      keys.forEach((key) => cache.delete(key));
     },
   };
 });
