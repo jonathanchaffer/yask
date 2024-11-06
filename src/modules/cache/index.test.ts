@@ -54,14 +54,12 @@ describe.each(Object.entries(CACHE_ADAPTERS))("%s cache client", (name, createCa
 
   describe("cache store wrapper", () => {
     it("can store and retrieve values based on key and value schemas", async () => {
-      const store = createCacheStore(
-        {
-          keySchema: z.object({ id: z.number(), secondaryId: z.string() }),
-          keyFormatter: (key) => `foo-${key.id}-${key.secondaryId}`,
-          valueSchema: z.object({ foo: z.string(), bar: z.number() }),
-        },
-        createCacheClient(),
-      );
+      const store = createCacheStore({
+        keySchema: z.object({ id: z.number(), secondaryId: z.string() }),
+        keyFormatter: (key) => `foo-${key.id}-${key.secondaryId}`,
+        valueSchema: z.object({ foo: z.string(), bar: z.number() }),
+      })(inMemoryCacheAdapter());
+
       await store.connect();
 
       const key = { id: 42, secondaryId: "hello" };
@@ -74,14 +72,11 @@ describe.each(Object.entries(CACHE_ADAPTERS))("%s cache client", (name, createCa
       expect(storedValue).toEqual(value);
     });
     it("throws a type error when key and/or value does not conform to its schema", async () => {
-      const store = createCacheStore(
-        {
-          keySchema: z.number(),
-          keyFormatter: (key) => `${key}`,
-          valueSchema: z.number(),
-        },
-        inMemoryCacheAdapter(),
-      );
+      const store = createCacheStore({
+        keySchema: z.number(),
+        keyFormatter: (key) => `${key}`,
+        valueSchema: z.number(),
+      })(inMemoryCacheAdapter());
 
       // @ts-expect-error - value should be a number, not a string
       store.set(1, "bar");

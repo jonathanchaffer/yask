@@ -1,17 +1,18 @@
 import { faker } from "@faker-js/faker";
 import { eq } from "drizzle-orm";
-import { userCacheStorePort } from "~/app/stores/user";
+import { userCacheStore } from "~/app/stores/user";
 import { users } from "~/db/drizzle/schema";
 import { dbPort } from "~/db/port";
+import { cachePort } from "~/modules/cache/port";
 import { createAdapter } from "~/modules/hexagonal";
 import { userRepositoryPort } from "./port";
 
 export const userRepositoryAdapter = createAdapter(
   userRepositoryPort,
-  [dbPort, userCacheStorePort],
+  [dbPort, cachePort],
   (context) => {
     const db = context.getAdapter("db").db;
-    const cacheStore = context.getAdapter("userCacheStore");
+    const cacheStore = userCacheStore(context.getAdapter("cache"));
 
     return {
       getUserById: async (id) => {

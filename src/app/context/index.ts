@@ -6,7 +6,6 @@ import { postServiceAdapter } from "~/app/services/post/adapters";
 import { postServicePort } from "~/app/services/post/port";
 import { userServiceAdapter } from "~/app/services/user/adapters";
 import { userServicePort } from "~/app/services/user/port";
-import { userCacheStoreAdapter, userCacheStorePort } from "~/app/stores/user";
 import { drizzleDbAdapter } from "~/db/drizzle/adapter";
 import { dbPort } from "~/db/port";
 import { redisCacheAdapter } from "~/modules/cache/adapters/redis";
@@ -25,7 +24,6 @@ import { createContext } from "~/modules/hexagonal";
 export const appContext = createContext([
   [dbPort, drizzleDbAdapter],
   [cachePort, redisCacheAdapter],
-  [userCacheStorePort, userCacheStoreAdapter],
   [userRepositoryPort, userRepositoryAdapter],
   [userServicePort, userServiceAdapter],
   [postRepositoryPort, postRepositoryAdapter],

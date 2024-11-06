@@ -4,7 +4,6 @@ import { mockUserRepositoryAdapter } from "~/app/repositories/user/adapters";
 import { userRepositoryPort } from "~/app/repositories/user/port";
 import { userServiceAdapter } from "~/app/services/user/adapters";
 import { userServicePort } from "~/app/services/user/port";
-import { userCacheStoreAdapter, userCacheStorePort } from "~/app/stores/user";
 import { drizzleDbAdapter } from "~/db/drizzle/adapter";
 import { dbPort } from "~/db/port";
 import { inMemoryCacheAdapter } from "~/modules/cache/adapters/in-memory";
@@ -18,7 +17,6 @@ if (process.env.NODE_ENV !== "test") {
 const testContext = createContext([
   [dbPort, drizzleDbAdapter],
   [cachePort, inMemoryCacheAdapter],
-  [userCacheStorePort, userCacheStoreAdapter],
   [userRepositoryPort, mockUserRepositoryAdapter],
   [userServicePort, userServiceAdapter],
   [postRepositoryPort, mockPostRepositoryAdapter],

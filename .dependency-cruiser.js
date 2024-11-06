@@ -39,6 +39,7 @@ module.exports = {
     { from: { path: "src/app/server" }, to: { path: "~/app/context" } },
     { from: { path: "src/app/repositories" }, to: { path: "~/db" } },
     { from: { path: "src/app/repositories" }, to: { path: "~/app/stores" } },
+    { from: { path: "src/app/repositories" }, to: { path: "~/modules/cache/port" } },
     { from: { path: "src/app/context" }, to: { path: "~/*" } },
   ],
   allowedSeverity: "error",

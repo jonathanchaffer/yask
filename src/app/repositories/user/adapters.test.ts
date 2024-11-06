@@ -1,4 +1,5 @@
 import { withTestContext } from "~/app/context/test-context";
+import { userCacheStore } from "~/app/stores/user";
 import { blueprints } from "~/db/blueprints";
 import { mockUserRepositoryAdapter, userRepositoryAdapter } from "./adapters";
 
@@ -27,7 +28,7 @@ describe("userRepositoryAdapter", () => {
       "gets a user from cache if it exists",
       withTestContext(async (context) => {
         await context.getAdapter("cache").connect();
-        await context.getAdapter("userCacheStore").set(
+        await userCacheStore(context.getAdapter("cache")).set(
           { id: "00000000-0000-0000-0000-000000000001" },
           {
             id: "00000000-0000-0000-0000-000000000001",
@@ -59,7 +60,7 @@ describe("userRepositoryAdapter", () => {
 
         await adapter.getUserById("00000000-0000-0000-0000-000000000001");
 
-        const cachedUser = await context.getAdapter("userCacheStore").get({
+        const cachedUser = await userCacheStore(context.getAdapter("cache")).get({
           id: "00000000-0000-0000-0000-000000000001",
         });
         expect(cachedUser).toEqual({
