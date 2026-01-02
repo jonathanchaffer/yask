@@ -48,7 +48,7 @@ describe("mockPostRepositoryAdapter", () => {
     it("returns a list of posts", async () => {
       const adapter = mockPostRepositoryAdapter();
 
-      const posts = await adapter.getPostsByUserId("00000000-0000-0000-0000-000000000001");
+      const posts = await adapter.getPostsByUserId("00000000-0000-4000-8000-000000000001");
       expect(posts).toHaveLength(2);
     });
   });
@@ -57,13 +57,13 @@ describe("mockPostRepositoryAdapter", () => {
       const adapter = mockPostRepositoryAdapter();
 
       const post = await adapter.createPost(
-        "00000000-0000-0000-0000-000000000001",
+        "00000000-0000-4000-8000-000000000001",
         "title",
         "content",
       );
       expect(post).toMatchObject<PostRecord>({
         id: expect.any(String),
-        userId: "00000000-0000-0000-0000-000000000001",
+        userId: "00000000-0000-4000-8000-000000000001",
         title: "title",
         content: "content",
       });
