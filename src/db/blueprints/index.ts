@@ -1,4 +1,5 @@
 import { faker } from "@faker-js/faker";
+import { InferInsertModel, InferSelectModel } from "drizzle-orm";
 import * as schema from "~/db/drizzle/schema";
 import { dbPort } from "~/db/port";
 import { HexagonalContext, HexagonalPort } from "~/modules/hexagonal/types";
@@ -37,8 +38,8 @@ export const blueprints: {
 
 type Blueprint<TTable extends keyof typeof schema> = (
   context: HexagonalContext<"db" | string, typeof dbPort | HexagonalPort>,
-  data?: Partial<(typeof schema)[TTable]["$inferInsert"]>,
-) => Promise<(typeof schema)[TTable]["$inferSelect"]>;
+  data?: Partial<InferInsertModel<(typeof schema)[TTable]>>,
+) => Promise<InferSelectModel<(typeof schema)[TTable]>>;
 
 /**
  * Create a blueprint for a table in the schema.
@@ -53,18 +54,17 @@ function createBlueprint<TTable extends keyof typeof schema>(
   table: TTable,
   defaults: (
     context: HexagonalContext<"db" | string, typeof dbPort | HexagonalPort>,
-  ) => Promise<(typeof schema)[TTable]["$inferInsert"]> | (typeof schema)[TTable]["$inferInsert"],
+  ) =>
+    | Promise<InferInsertModel<(typeof schema)[TTable]>>
+    | InferInsertModel<(typeof schema)[TTable]>,
 ): Blueprint<TTable> {
   return async (context, data) => {
-    return await context
-      .getAdapter("db")
-      .db.insert(schema[table])
-      .values({
-        ...(await defaults(context)),
-        ...data,
-      })
-      .returning()
-      .execute()
-      .then((results) => results[0]);
+    const tbl = schema[table] as (typeof schema)[TTable];
+    const base = await defaults(context);
+    const values = { ...base, ...(data ?? {}) } as InferInsertModel<(typeof schema)[TTable]>;
+
+    const results = await context.getAdapter("db").db.insert(tbl).values(values).returning();
+
+    return results[0] as InferSelectModel<(typeof schema)[TTable]>;
   };
 }
